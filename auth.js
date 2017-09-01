@@ -5,7 +5,7 @@ export default (app) => {
   const Users = app.datasource.models.Users;
   const opts = {};
   opts.secretOrKey = app.config.jwtSecret;
-  opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken(); // @TODO validar
+  opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 
   const strategy = new Strategy(opts, (payload, done) => {
     Users.findById(payload.id)
@@ -26,6 +26,6 @@ export default (app) => {
 
   return {
     initialize: () => passport.initialize(),
-    authenticate: () => passport.authenticate('jwt', app.config.jwtSecret),
+    authenticate: () => passport.authenticate('jwt', app.config.jwtSession),
   };
 };
